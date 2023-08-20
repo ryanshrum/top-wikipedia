@@ -2,9 +2,9 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    // extend: {},
     boxShadow: {
       blunt: '0px 2px 0px 0px rgba(2, 91, 75, 0.10)',
+      calendar: '0px 4px 24px 0px rgba(0, 0, 0, 0.12)',
       card: '0px 2px 0px 1px rgba(5, 9, 13, 0.06)',
     },
     colors: {
@@ -14,6 +14,10 @@ module.exports = {
       },
       green: {
         500: '#025B4B',
+        '500-hover': 'rgba(2, 91, 75, 0.8)',
+      },
+      ivy: {
+        300: '#B3CEC9',
       },
       marigold: {
         200: '#FAE7CC',
@@ -33,10 +37,6 @@ module.exports = {
       serif: ['Lora', 'serif'],
       sans: ['Poppins', 'sans-serif'],
     },
-    // fontSize: {
-    //   28 / 42
-    //   40 / 60
-    // }
   },
   plugins: [],
 }
