@@ -1,6 +1,8 @@
 export { ArticleListItem } from './article-list-item'
+export type { ArticleListItemProps } from './article-list-item'
 export { CalendarIcon } from './icon/calendar'
 export { ChevronIcon } from './icon/chevron'
+export { Dropdown } from './dropdown'
 export { Header } from './header'
 export { ListIcon } from './icon/list'
 export { Pagination } from './pagination'

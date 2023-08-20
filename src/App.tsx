@@ -3,15 +3,15 @@ import DatePicker from 'react-datepicker'
 
 import {
   ArticleListItem,
+  ArticleListItemProps,
   CalendarIcon,
   ChevronIcon,
+  Dropdown,
   Header,
-  ListIcon,
   Pagination,
 } from './components'
 import { YESTERDAY, formatDateForAPI } from './utilities'
 import { getArticles } from './api'
-import { ArticleListItemProps } from './components/article-list-item'
 
 export const App = () => {
   const [date, setDate] = useState(YESTERDAY)
@@ -101,17 +101,11 @@ export const App = () => {
               />
             </div>
             <div className="md:pl-9">
-              <div className="mb-6 flex items-center rounded-full md:mb-0 md:p-3 md:hover:bg-neutral-100">
-                <div className="bg-marigold-200 text-marigold-500 mr-6 flex rounded-full p-3 ">
-                  <ListIcon />
-                </div>
-                <div className="pr-4">
-                  <div className="flex items-center text-xs uppercase text-neutral-500">
-                    Num. Results <ChevronIcon className="ml-1" />
-                  </div>
-                  <div className="text-neutral-900">{articlesPerPage}</div>
-                </div>
-              </div>
+              <Dropdown
+                selected={articlesPerPage}
+                options={[25, 50, 75, 100, 200]}
+                onClick={(selected: number) => setArticlesPerPage(selected)}
+              />
             </div>
             {/* <div>country picker</div> */}
             <button className="text-neutral-000 hover:bg-green-500-hover w-full rounded-full bg-green-500 px-6 py-3 font-medium md:ml-auto md:max-w-[160px]">
