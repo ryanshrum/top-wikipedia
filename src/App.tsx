@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 
 import {
@@ -9,13 +9,34 @@ import {
   ListIcon,
   Pagination,
 } from './components'
-import { YESTERDAY } from './utilities'
+import { YESTERDAY, formatDateForAPI } from './utilities'
+import { getArticles } from './api'
+import { ArticleListItemProps } from './components/article-list-item'
 
 export const App = () => {
   const [date, setDate] = useState(YESTERDAY)
+  const [articlesPerPage, setArticlesPerPage] = useState(10)
+  const [articles, setArticles] = useState([])
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const pagesCount = Math.ceil(articles.length / articlesPerPage)
+  const offset = currentPage * articlesPerPage
+  const currentPageArticles = articles.slice(offset, offset + articlesPerPage)
+
+  useEffect(() => {
+    handlePageChange({ selected: 0 })
+    const formattedDate = formatDateForAPI(date)
+    getArticles(formattedDate).then((response) => {
+      setArticles(response.items[0].articles)
+    })
+  }, [date])
+
+  const handlePageChange = (selectedPage: { selected: number }) => {
+    setCurrentPage(selectedPage.selected)
+  }
 
   return (
-    <div className="h-screen bg-neutral-100">
+    <div className="bg-neutral-100">
       <div className="shadow-blunt bg-neutral-000 h-16" />
       <div className="md:px-16">
         <div className="mx-auto h-full max-w-[800px]">
@@ -29,7 +50,7 @@ export const App = () => {
                 selected={date}
                 customInput={
                   <button className="mb-6 flex items-center rounded-full md:mb-0 md:p-3 md:hover:bg-neutral-100">
-                    <div className="bg-avocado-200 text-green-500m mr-6 flex rounded-full p-3 ">
+                    <div className="bg-avocado-200 mr-6 flex rounded-full p-3 text-green-500 ">
                       <CalendarIcon />
                     </div>
                     <div className="pr-4">
@@ -88,7 +109,7 @@ export const App = () => {
                   <div className="flex items-center text-xs uppercase text-neutral-500">
                     Num. Results <ChevronIcon className="ml-1" />
                   </div>
-                  <div className="text-neutral-900">100</div>
+                  <div className="text-neutral-900">{articlesPerPage}</div>
                 </div>
               </div>
             </div>
@@ -99,16 +120,27 @@ export const App = () => {
           </div>
 
           {/* article list */}
-          <div className="md:shadow-card bg-neutral-000 mb-10 p-6 md:rounded-2xl">
-            <ArticleListItem
-              order={1}
-              title="Title of the article"
-              views={500123211}
-            />
-          </div>
+          {currentPageArticles.length > 0 && (
+            <div className="md:shadow-card bg-neutral-000 mb-10 p-6 md:rounded-2xl">
+              {currentPageArticles.map(
+                ({ article, rank, views }: ArticleListItemProps) => (
+                  <ArticleListItem
+                    key={article}
+                    rank={rank}
+                    article={article}
+                    views={views}
+                  />
+                )
+              )}
+            </div>
+          )}
 
           {/* pagination */}
-          <Pagination pageCount={5} />
+          <Pagination
+            pageCount={pagesCount}
+            forcePage={currentPage}
+            onPageChange={handlePageChange}
+          />
         </div>
       </div>
     </div>
