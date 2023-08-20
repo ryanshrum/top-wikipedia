@@ -2,7 +2,7 @@ import ReactPaginate, { ReactPaginateProps } from 'react-paginate'
 import { ChevronIcon } from './icon/chevron'
 
 export const Pagination = ({
-  pageCount,
+  pageCount = 0,
 }: Pick<ReactPaginateProps, 'pageCount'>) => {
   const linkClassList =
     'rounded-full border border-neutral-400 bg-neutral-000 hover:bg-neutral-300 w-10 h-10 flex items-center justify-center'
@@ -21,7 +21,8 @@ export const Pagination = ({
       pageLinkClassName={linkClassList}
       previousLinkClassName={linkClassList}
       nextLinkClassName={linkClassList}
-      activeLinkClassName="bg-avocado-300 hover:bg-avocado-300 text-green-500 border-avocado-300 cursor-default"
+      // look into why important needed here, shouldn't be
+      activeLinkClassName="!bg-avocado-300 !hover:bg-avocado-300 !text-green-500 !border-avocado-300 cursor-default"
       disabledLinkClassName="bg-neutral-400 hover:bg-neutral-400 cursor-auto text-neutral-600 border-neutral-400"
       renderOnZeroPageCount={null}
     />
