@@ -1,8 +1,11 @@
-import React from 'react'
-import { CalendarIcon } from './components/icon/calendar'
-import { ListIcon } from './components/icon/list'
-import { Header } from './components/header'
-import { ChevronIcon } from './components/icon/chevron'
+import {
+  ArticleListItem,
+  CalendarIcon,
+  ChevronIcon,
+  Header,
+  ListIcon,
+  Pagination,
+} from './components'
 
 export const App = () => {
   return (
@@ -47,17 +50,16 @@ export const App = () => {
           </div>
 
           {/* article list */}
-          <div className="md:shadow-card bg-neutral-000 p-6 md:rounded-2xl">
-            <div className="mb-5 flex items-center rounded-xl border border-neutral-300 p-6">
-              <div className="w-5 font-serif text-neutral-500">1</div>
-              <div className="mx-5 font-serif font-medium text-neutral-900">
-                Title of the article Title of the article Title of the article
-              </div>
-              <div className="ml-auto flex-shrink-0 text-right text-sm text-neutral-600">
-                500,123,211 views
-              </div>
-            </div>
+          <div className="md:shadow-card bg-neutral-000 mb-10 p-6 md:rounded-2xl">
+            <ArticleListItem
+              order={1}
+              title="Title of the article"
+              views={500123211}
+            />
           </div>
+
+          {/* pagination */}
+          <Pagination pageCount={5} />
         </div>
       </div>
     </div>
