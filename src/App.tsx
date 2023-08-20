@@ -10,14 +10,15 @@ import {
   Header,
   Pagination,
 } from './components'
-import { YESTERDAY, formatDateForAPI } from './utilities'
+import { formatDateForAPI } from './utilities'
+import { YESTERDAY, ARTICLES_PER_PAGE } from './constants'
 import { getArticles } from './api'
 
 export const App = () => {
-  const [date, setDate] = useState(YESTERDAY)
-  const [articlesPerPage, setArticlesPerPage] = useState(10)
   const [articles, setArticles] = useState([])
+  const [articlesPerPage, setArticlesPerPage] = useState(ARTICLES_PER_PAGE[3])
   const [currentPage, setCurrentPage] = useState(0)
+  const [date, setDate] = useState(YESTERDAY)
 
   const pagesCount = Math.ceil(articles.length / articlesPerPage)
   const offset = currentPage * articlesPerPage
@@ -70,7 +71,7 @@ export const App = () => {
                 previousMonthButtonLabel={<ChevronIcon className="rotate-90" />}
                 nextMonthButtonLabel={<ChevronIcon className="-rotate-90" />}
                 onChange={(date: Date) => setDate(date)}
-                formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 3)}
+                formatWeekDay={(nameOfDay) => nameOfDay.substring(0, 3)}
                 popperClassName="bg-neutral-000 shadow-calendar rounded-3xl px-4 py-8 z-10"
                 renderCustomHeader={({
                   monthDate,
@@ -103,7 +104,7 @@ export const App = () => {
             <div className="md:pl-9">
               <Dropdown
                 selected={articlesPerPage}
-                options={[25, 50, 75, 100, 200]}
+                options={ARTICLES_PER_PAGE}
                 onClick={(selected: number) => setArticlesPerPage(selected)}
               />
             </div>

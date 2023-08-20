@@ -24,7 +24,7 @@
 }
 
 .react-datepicker__day {
-  @apply m-1.5 flex h-9 w-9 flex-none cursor-pointer items-center justify-center text-sm;
+  @apply m-1.5 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-sm hover:bg-neutral-100;
 }
 
 .react-datepicker__day--outside-month {
@@ -32,7 +32,7 @@
 }
 
 .react-datepicker__day--selected {
-  @apply bg-ivy-300 rounded-full text-green-500;
+  @apply bg-ivy-300  text-green-500;
 }
 
 .react-datepicker__day--disabled {

@@ -1,6 +1,7 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useRef, useState } from 'react'
 import cx from 'classnames'
 import { ChevronIcon, ListIcon } from '.'
+import { useClickOutside } from '../hooks/useClickOutside'
 
 interface DropdownProps {
   button?: ReactNode
@@ -15,7 +16,12 @@ export const Dropdown = ({
   options,
   selected,
 }: DropdownProps) => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLInputElement>(null)
+  useClickOutside(dropdownRef, () => {
+    setIsOpen(false)
+  })
+
   const dropdownClassList = cx(
     'bg-neutral-000 shadow-calendar z-10 rounded-3xl py-6 absolute w-52',
     {
@@ -33,7 +39,7 @@ export const Dropdown = ({
   }
 
   return (
-    <>
+    <div ref={dropdownRef}>
       <button onClick={() => setIsOpen(!isOpen)} className={buttonClassList}>
         <div className="bg-marigold-200 text-marigold-500 mr-6 flex rounded-full p-3">
           <ListIcon />
@@ -47,10 +53,13 @@ export const Dropdown = ({
       </button>
       <ul className={dropdownClassList}>
         {options.map((option) => {
-          const optionClassList = cx('cursor-pointer px-4 py-2 text-center', {
-            'bg-ivy-300 text-green-500': selected === option,
-            'mb-2': option !== options[options.length - 1],
-          })
+          const optionClassList = cx(
+            'cursor-pointer px-4 py-2 text-center md:hover:bg-neutral-100',
+            {
+              'bg-ivy-300 text-green-500': selected === option,
+              'mb-2': option !== options[options.length - 1],
+            }
+          )
 
           return (
             <li
@@ -63,6 +72,6 @@ export const Dropdown = ({
           )
         })}
       </ul>
-    </>
+    </div>
   )
 }
