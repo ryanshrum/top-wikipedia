@@ -15,11 +15,16 @@ import { YESTERDAY, ARTICLES_PER_PAGE } from './constants'
 import { formatDateForAPI } from './utilities'
 
 export const App = () => {
+  const storedPinnedArticles = JSON.parse(
+    localStorage.getItem('pinnedArticles') || ''
+  )
   const [articles, setArticles] = useState([])
   const [articlesPerPage, setArticlesPerPage] = useState(ARTICLES_PER_PAGE[3])
   const [currentPage, setCurrentPage] = useState(0)
   const [date, setDate] = useState(YESTERDAY)
-  const [pinnedArticles, setPinnedArticles] = useState<Article[]>([])
+  const [pinnedArticles, setPinnedArticles] = useState<Article[]>(
+    storedPinnedArticles || []
+  )
 
   const pagesCount = Math.ceil(articles.length / articlesPerPage)
   const offset = currentPage * articlesPerPage
@@ -34,6 +39,10 @@ export const App = () => {
       setArticles(response.items[0].articles)
     })
   }, [date])
+
+  useEffect(() => {
+    localStorage.setItem('pinnedArticles', JSON.stringify(pinnedArticles))
+  }, [pinnedArticles])
 
   const handlePageChange = (selectedPage: { selected: number }) => {
     setCurrentPage(selectedPage.selected)
