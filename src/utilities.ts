@@ -7,3 +7,17 @@
 export const formatDateForAPI = (date: Date): string => {
   return date.toISOString().split('T')[0].replaceAll('-', '/')
 }
+
+/**
+ * Formats a date into a readable string representation.
+ *
+ * @param {Date} date - The date to be formatted.
+ * @return {string} The formatted date string.
+ */
+export const formatDateReadable = (date: Date): string => {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}

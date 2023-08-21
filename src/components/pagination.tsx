@@ -9,6 +9,7 @@ export const Pagination = (props: ReactPaginateProps) => {
     <ReactPaginate
       // pass all props through, but everything below we want as overrides
       {...props}
+      // look into why important needed here, shouldn't be
       activeLinkClassName="!bg-avocado-300 !hover:bg-avocado-300 !text-green-500 !border-avocado-300 cursor-default"
       containerClassName="flex justify-center items-center text-sm text-neutral-900 pb-20"
       disabledLinkClassName="bg-neutral-400 hover:bg-neutral-400 cursor-auto text-neutral-600 border-neutral-400"
@@ -22,7 +23,6 @@ export const Pagination = (props: ReactPaginateProps) => {
       previousClassName="mr-5"
       previousLabel={<ChevronIcon className="rotate-90" />}
       previousLinkClassName={linkClassList}
-      // look into why important needed here, shouldn't be
       renderOnZeroPageCount={null}
     />
   )

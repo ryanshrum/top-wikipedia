@@ -32,6 +32,10 @@ module.exports = {
         600: '#737680',
         900: '#05090D',
       },
+      ocean: {
+        200: '#DEE8F6',
+        500: '#2464C6',
+      },
     },
     fontFamily: {
       serif: ['Lora', 'serif'],
