@@ -20,11 +20,7 @@ export const ArticleListItem = ({
 }: ArticleListItemProps) => {
   return (
     <div className="flex items-center rounded-xl border border-neutral-300 p-6 [&:not(:last-child)]:mb-5">
-      {rank && (
-        <div className="mr-5 w-6 font-serif text-neutral-500">
-          {rank.toLocaleString()}
-        </div>
-      )}
+      {rank && <div className="mr-5 w-6 font-serif text-neutral-500">{rank.toLocaleString()}</div>}
       <div className="mr-5 font-serif font-medium text-neutral-900">
         {article.replaceAll('_', ' ')}
       </div>
@@ -32,7 +28,7 @@ export const ArticleListItem = ({
         {views.toLocaleString()} views
       </div>
       <button
-        className="text-marigold-600 hover:text-marigold-500 ml-5"
+        className="ml-5 text-marigold-600 hover:text-marigold-500"
         onClick={() => onClickPin({ article, views })}
       >
         {pinned ? <PinSolidIcon /> : <PinOutlineIcon />}

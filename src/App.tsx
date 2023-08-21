@@ -15,16 +15,12 @@ import { YESTERDAY, ARTICLES_PER_PAGE } from './constants'
 import { formatDateForAPI } from './utilities'
 
 export const App = () => {
-  const storedPinnedArticles = JSON.parse(
-    localStorage.getItem('pinnedArticles') || ''
-  )
+  const storedPinnedArticles = JSON.parse(localStorage.getItem('pinnedArticles') || '')
   const [articles, setArticles] = useState([])
   const [articlesPerPage, setArticlesPerPage] = useState(ARTICLES_PER_PAGE[3])
   const [currentPage, setCurrentPage] = useState(0)
   const [date, setDate] = useState(YESTERDAY)
-  const [pinnedArticles, setPinnedArticles] = useState<Article[]>(
-    storedPinnedArticles || []
-  )
+  const [pinnedArticles, setPinnedArticles] = useState<Article[]>(storedPinnedArticles || [])
 
   const pagesCount = Math.ceil(articles.length / articlesPerPage)
   const offset = currentPage * articlesPerPage
@@ -48,30 +44,27 @@ export const App = () => {
     setCurrentPage(selectedPage.selected)
   }
 
-  const handleOnClickPin = (article: Article) => {
-    if (pinnedArticles.some((a) => a.article === article.article)) {
+  const handleOnClickPin = (clickedArticle: Article) => {
+    if (pinnedArticles.some((pinnedArticle) => pinnedArticle.article === clickedArticle.article)) {
       setPinnedArticles(
-        pinnedArticles.filter((a) => a.article !== article.article)
+        pinnedArticles.filter((pinnedArticle) => pinnedArticle.article !== clickedArticle.article)
       )
     } else {
-      setPinnedArticles([...pinnedArticles, article])
+      setPinnedArticles([...pinnedArticles, clickedArticle])
     }
   }
 
   return (
     <div className="bg-neutral-100">
-      <div className="shadow-blunt bg-neutral-000 h-16" />
+      <div className="h-16 bg-neutral-000 shadow-blunt" />
       <div className="md:px-16">
         <div className="mx-auto h-full max-w-[948px]">
           <Header>Top Wikipedia articles</Header>
 
           {/* form controls */}
-          <div className="bg-neutral-000 shadow-card p-6 md:flex md:rounded-full md:p-4">
+          <div className="bg-neutral-000 p-6 shadow-card md:flex md:rounded-full md:p-4">
             <div className="flex border-neutral-300 md:border-r md:pr-9 ">
-              <DatePicker
-                date={date}
-                onChange={(date: Date) => setDate(date)}
-              />
+              <DatePicker date={date} onChange={(date: Date) => setDate(date)} />
             </div>
             <div className="md:pl-9">
               <Dropdown
@@ -81,9 +74,7 @@ export const App = () => {
               />
             </div>
             {/* <Country picker /> */}
-            <SearchButton onClick={() => console.log('search')}>
-              Search
-            </SearchButton>
+            <SearchButton onClick={() => console.log('search')}>Search</SearchButton>
           </div>
           {pinnedArticles.length > 0 && (
             <Card>
@@ -102,26 +93,20 @@ export const App = () => {
           {currentPageArticles.length > 0 && (
             <>
               <Card>
-                {currentPageArticles.map(
-                  ({ article, rank, views }: ArticleListItemProps) => {
-                    const isPinned = pinnedArticles.some(
-                      (a) => a.article === article
-                    )
+                {currentPageArticles.map(({ article, rank, views }: ArticleListItemProps) => {
+                  const isPinned = pinnedArticles.some((a) => a.article === article)
 
-                    return (
-                      <ArticleListItem
-                        key={article}
-                        rank={rank}
-                        article={article}
-                        views={views}
-                        pinned={isPinned}
-                        onClickPin={(article: Article) =>
-                          handleOnClickPin(article)
-                        }
-                      />
-                    )
-                  }
-                )}
+                  return (
+                    <ArticleListItem
+                      key={article}
+                      rank={rank}
+                      article={article}
+                      views={views}
+                      pinned={isPinned}
+                      onClickPin={(article: Article) => handleOnClickPin(article)}
+                    />
+                  )
+                })}
               </Card>
               {/* pagination */}
               <Pagination

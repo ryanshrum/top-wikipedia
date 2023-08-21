@@ -1,9 +1,6 @@
 import { SVGAttributes } from 'react'
 
-export const Icon = ({
-  children,
-  ...otherProps
-}: SVGAttributes<SVGElement>) => {
+export const Icon = ({ children, ...otherProps }: SVGAttributes<SVGElement>) => {
   return (
     <svg
       fill="currentColor"

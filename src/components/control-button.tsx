@@ -16,10 +16,7 @@ type ColorsObject = {
 }
 
 export const ControlButton = forwardRef<HTMLButtonElement, ControlButtonProps>(
-  (
-    { label, className, icon, iconColor, text, onClick }: ControlButtonProps,
-    ref
-  ) => {
+  ({ label, className, icon, iconColor, text, onClick }: ControlButtonProps, ref) => {
     const colors: ColorsObject = {
       green: 'text-green-500 bg-avocado-200',
       gold: 'bg-marigold-200 text-marigold-500',
@@ -33,9 +30,7 @@ export const ControlButton = forwardRef<HTMLButtonElement, ControlButtonProps>(
 
     return (
       <button ref={ref} className={buttonClassList} onClick={onClick}>
-        <div className={cx('mr-6 flex rounded-full p-3', colors[iconColor])}>
-          {icon}
-        </div>
+        <div className={cx('mr-6 flex rounded-full p-3', colors[iconColor])}>{icon}</div>
         <div className="pr-2">
           <div className="flex items-center text-xs uppercase text-neutral-500">
             {label} <ChevronIcon className="ml-1" />

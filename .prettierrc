@@ -1,8 +1,9 @@
 {
   "arrow-parens": "always",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "printWidth": 100,
   "semi": false,
   "singleQuote": true,
   "tabWidth": 2,
-  "trailingComma": "es5",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "trailingComma": "es5"
 }

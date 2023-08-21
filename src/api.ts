@@ -7,8 +7,6 @@ const BASE_API_URL = 'https://wikimedia.org/api/rest_v1/metrics'
  * @return {Promise<any>} - A promise that resolves to the JSON response of the API call.
  */
 export const getArticles = async (date: string): Promise<any> => {
-  const response = await fetch(
-    `${BASE_API_URL}/pageviews/top/en.wikipedia/all-access/${date}`
-  )
+  const response = await fetch(`${BASE_API_URL}/pageviews/top/en.wikipedia/all-access/${date}`)
   return await response.json()
 }

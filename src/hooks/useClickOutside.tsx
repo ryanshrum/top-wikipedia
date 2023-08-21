@@ -7,10 +7,7 @@ import { RefObject, useEffect } from 'react'
  * @param {() => void} onClickOutside - Callback function to be invoked when a click event occurs outside of the specified element.
  * @return {void}
  */
-export const useClickOutside = (
-  ref: RefObject<HTMLElement>,
-  onClickOutside: () => void
-): void => {
+export const useClickOutside = (ref: RefObject<HTMLElement>, onClickOutside: () => void): void => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as HTMLElement)) {
