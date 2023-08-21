@@ -11,7 +11,7 @@ export const Pagination = (props: ReactPaginateProps) => {
       {...props}
       // look into why important needed here, shouldn't be
       activeLinkClassName="!bg-avocado-300 !hover:bg-avocado-300 !text-green-500 !border-avocado-300 cursor-default"
-      containerClassName="flex justify-center items-center text-sm text-neutral-900 pb-20"
+      containerClassName="flex justify-center items-center text-sm text-neutral-900 pb-20 mt-10"
       disabledLinkClassName="bg-neutral-400 hover:bg-neutral-400 cursor-auto text-neutral-600 border-neutral-400"
       marginPagesDisplayed={1}
       nextClassName="ml-5"

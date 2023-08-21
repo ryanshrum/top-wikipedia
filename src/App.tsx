@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getArticles } from './api'
 import {
+  Article,
   ArticleListItem,
   ArticleListItemProps,
+  Card,
   DatePicker,
   Dropdown,
   Header,
@@ -17,13 +19,16 @@ export const App = () => {
   const [articlesPerPage, setArticlesPerPage] = useState(ARTICLES_PER_PAGE[3])
   const [currentPage, setCurrentPage] = useState(0)
   const [date, setDate] = useState(YESTERDAY)
+  const [pinnedArticles, setPinnedArticles] = useState<Article[]>([])
 
   const pagesCount = Math.ceil(articles.length / articlesPerPage)
   const offset = currentPage * articlesPerPage
-  const currentPageArticles = articles.slice(offset, offset + articlesPerPage)
+  const currentPageArticles = useMemo(() => {
+    return articles.slice(offset, offset + articlesPerPage)
+  }, [articles, articlesPerPage, offset])
 
   useEffect(() => {
-    handlePageChange({ selected: 0 })
+    setCurrentPage(0)
     const formattedDate = formatDateForAPI(date)
     getArticles(formattedDate).then((response) => {
       setArticles(response.items[0].articles)
@@ -34,15 +39,25 @@ export const App = () => {
     setCurrentPage(selectedPage.selected)
   }
 
+  const handleOnClickPin = (article: Article) => {
+    if (pinnedArticles.some((a) => a.article === article.article)) {
+      setPinnedArticles(
+        pinnedArticles.filter((a) => a.article !== article.article)
+      )
+    } else {
+      setPinnedArticles([...pinnedArticles, article])
+    }
+  }
+
   return (
     <div className="bg-neutral-100">
       <div className="shadow-blunt bg-neutral-000 h-16" />
       <div className="md:px-16">
-        <div className="mx-auto h-full max-w-[800px]">
+        <div className="mx-auto h-full max-w-[948px]">
           <Header>Top Wikipedia articles</Header>
 
           {/* form controls */}
-          <div className="bg-neutral-000 shadow-card mb-6 p-6 md:flex md:rounded-full md:p-4">
+          <div className="bg-neutral-000 shadow-card p-6 md:flex md:rounded-full md:p-4">
             <div className="flex border-neutral-300 md:border-r md:pr-9 ">
               <DatePicker
                 date={date}
@@ -61,29 +76,52 @@ export const App = () => {
               Search
             </SearchButton>
           </div>
-
+          {pinnedArticles.length > 0 && (
+            <Card>
+              {pinnedArticles.map(({ article, views }: Article) => (
+                <ArticleListItem
+                  key={article}
+                  article={article}
+                  views={views}
+                  pinned
+                  onClickPin={(article: Article) => handleOnClickPin(article)}
+                />
+              ))}
+            </Card>
+          )}
           {/* article list */}
           {currentPageArticles.length > 0 && (
-            <div className="md:shadow-card bg-neutral-000 mb-10 p-6 md:rounded-2xl">
-              {currentPageArticles.map(
-                ({ article, rank, views }: ArticleListItemProps) => (
-                  <ArticleListItem
-                    key={article}
-                    rank={rank}
-                    article={article}
-                    views={views}
-                  />
-                )
-              )}
-            </div>
-          )}
+            <>
+              <Card>
+                {currentPageArticles.map(
+                  ({ article, rank, views }: ArticleListItemProps) => {
+                    const isPinned = pinnedArticles.some(
+                      (a) => a.article === article
+                    )
 
-          {/* pagination */}
-          <Pagination
-            pageCount={pagesCount}
-            forcePage={currentPage}
-            onPageChange={handlePageChange}
-          />
+                    return (
+                      <ArticleListItem
+                        key={article}
+                        rank={rank}
+                        article={article}
+                        views={views}
+                        pinned={isPinned}
+                        onClickPin={(article: Article) =>
+                          handleOnClickPin(article)
+                        }
+                      />
+                    )
+                  }
+                )}
+              </Card>
+              {/* pagination */}
+              <Pagination
+                pageCount={pagesCount}
+                forcePage={currentPage}
+                onPageChange={handlePageChange}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

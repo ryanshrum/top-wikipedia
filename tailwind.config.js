@@ -22,6 +22,7 @@ module.exports = {
       marigold: {
         200: '#FAE7CC',
         500: '#E68A00',
+        600: '#BB9A6A',
       },
       neutral: {
         '000': '#FFFFFF',
