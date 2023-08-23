@@ -1,6 +1,38 @@
-# Getting Started with Create React App
+# Top Wikipedia articles
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Thank you for the oppurtunity to prepare this project. I enjoyed working on it and frankly hada difficult time putting it down at times. While there is always more that I would like to do, I am also eager to get it submitted and continue through the application process.
+
+In addition to React, I leveraged [`react-paginate`](https://github.com/AdeleD/react-paginate) and [`react-datepicker`](https://github.com/Hacker0x01/react-datepicker) to handle some of the heavy lifting of those pieces. Additionally, I used [Tailwind CSS](https://tailwindcss.com/docs/installation) with custom config for all the styling.
+
+#### What would I change or have done differently?
+
+- For the most part, things will match the Figma, but there are some places where I used the default sizes from Tailwind over adding customizations. Additionally, the "open" state is not indicated on the button to open the datepicker.
+- While this isn't quite large enough to warrant Redux, I think some global state management would be beneficial; for something of this size, the native Context API would be fine.
+- The dropdown component I made is not a true input and lacks accessibility.
+- There can always be a bit more testing, though I covered some of the key unit tests.
+- I would have some catches/error handling and loading indicators (even though these endpoints are super fast).
+- I started on the country work, but cut the scope to get it submitted. You'll see artifacts pertaining to that around.
+
+Thanks again for the oppurtunity and if there are any questions, please feel free to reach out.
+
+## Initial Setup
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) using Node **16.20.2** and NPM version **9.8.1**. If there are any issues, I would recommend aligning versions and reinstalling.
+
+#### With NVM
+
+I recommend using [Node Version Manager](https://github.com/nvm-sh/nvm#installing-and-updating) (NVM) for quickly changing between Node versions in various applications.
+
+```bash
+nvm install 16.20.1
+nvm use
+```
+
+Once on the correct version of Node, run:
+
+```bash
+npm install
+```
 
 ## Available Scripts
 
@@ -28,19 +60,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
