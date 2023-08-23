@@ -24,7 +24,6 @@ export const App = () => {
 
   // form values
   const [articlesPerPage, setArticlesPerPage] = useState(ARTICLES_PER_PAGE[3])
-  const [countryCode, setCountryCode] = useState<string>('')
   const [date, setDate] = useState(getYesterdayDate())
 
   const pagesCount = Math.ceil(articles.length / articlesPerPage)
