@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { getArticles } from './api'
+import { getMostViewedArticles } from './api'
 import {
   Article,
   ArticleListItem,
@@ -15,12 +15,16 @@ import { YESTERDAY, ARTICLES_PER_PAGE } from './constants'
 import { formatDateForAPI } from './utilities'
 
 export const App = () => {
+  // pinned articles
   const storedPinnedArticles = JSON.parse(localStorage.getItem('pinnedArticles') || '')
-  const [articles, setArticles] = useState([])
-  const [articlesPerPage, setArticlesPerPage] = useState(ARTICLES_PER_PAGE[3])
-  const [currentPage, setCurrentPage] = useState(0)
-  const [date, setDate] = useState(YESTERDAY)
   const [pinnedArticles, setPinnedArticles] = useState<Article[]>(storedPinnedArticles || [])
+
+  const [articles, setArticles] = useState([])
+  const [currentPage, setCurrentPage] = useState(0)
+
+  // form values
+  const [articlesPerPage, setArticlesPerPage] = useState(ARTICLES_PER_PAGE[3])
+  const [date, setDate] = useState(YESTERDAY)
 
   const pagesCount = Math.ceil(articles.length / articlesPerPage)
   const offset = currentPage * articlesPerPage
@@ -28,23 +32,25 @@ export const App = () => {
     return articles.slice(offset, offset + articlesPerPage)
   }, [articles, articlesPerPage, offset])
 
+  // initial data fetch
   useEffect(() => {
-    setCurrentPage(0)
-    const formattedDate = formatDateForAPI(date)
-    getArticles(formattedDate).then((response) => {
-      setArticles(response.items[0].articles)
-    })
-  }, [date])
+    getMostViewedArticles()
+      .then((response) => {
+        setArticles(response.items[0].articles)
+      })
+      .then(() => setCurrentPage(0))
+  }, [])
 
+  // this is a short-term solution
   useEffect(() => {
     localStorage.setItem('pinnedArticles', JSON.stringify(pinnedArticles))
   }, [pinnedArticles])
 
-  const handlePageChange = (selectedPage: { selected: number }) => {
+  const onClickPageChange = (selectedPage: { selected: number }) => {
     setCurrentPage(selectedPage.selected)
   }
 
-  const handleOnClickPin = (clickedArticle: Article) => {
+  const onClickPin = (clickedArticle: Article) => {
     if (pinnedArticles.some((pinnedArticle) => pinnedArticle.article === clickedArticle.article)) {
       setPinnedArticles(
         pinnedArticles.filter((pinnedArticle) => pinnedArticle.article !== clickedArticle.article)
@@ -52,6 +58,15 @@ export const App = () => {
     } else {
       setPinnedArticles([...pinnedArticles, clickedArticle])
     }
+  }
+
+  const onClickSearch = () => {
+    const formattedDate = formatDateForAPI(date)
+    getMostViewedArticles(formattedDate, countryCode)
+      .then((response) => {
+        setArticles(response.items[0].articles)
+      })
+      .then(() => setCurrentPage(0))
   }
 
   return (
@@ -74,7 +89,7 @@ export const App = () => {
               />
             </div>
             {/* <Country picker /> */}
-            <SearchButton onClick={() => console.log('search')}>Search</SearchButton>
+            <SearchButton onClick={onClickSearch}>Search</SearchButton>
           </div>
           {pinnedArticles.length > 0 && (
             <Card>
@@ -84,7 +99,7 @@ export const App = () => {
                   article={article}
                   views={views}
                   pinned
-                  onClickPin={(article: Article) => handleOnClickPin(article)}
+                  onClickPin={(article: Article) => onClickPin(article)}
                 />
               ))}
             </Card>
@@ -103,7 +118,7 @@ export const App = () => {
                       article={article}
                       views={views}
                       pinned={isPinned}
-                      onClickPin={(article: Article) => handleOnClickPin(article)}
+                      onClickPin={(article: Article) => onClickPin(article)}
                     />
                   )
                 })}
@@ -112,7 +127,7 @@ export const App = () => {
               <Pagination
                 pageCount={pagesCount}
                 forcePage={currentPage}
-                onPageChange={handlePageChange}
+                onPageChange={onClickPageChange}
               />
             </>
           )}
