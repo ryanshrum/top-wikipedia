@@ -61,8 +61,7 @@ export const App = () => {
   }
 
   const onClickSearch = () => {
-    const formattedDate = formatDateForAPI(date)
-    getMostViewedArticles(formattedDate, countryCode)
+    getMostViewedArticles(date)
       .then((response) => {
         setArticles(response.items[0].articles)
       })

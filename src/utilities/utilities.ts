@@ -15,9 +15,13 @@ export const formatDateForAPI = (date: Date): string => {
  * @return {string} The formatted date string.
  */
 export const formatDateReadable = (date: Date): string => {
+  console.log(date)
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC',
   })
 }
+
+export const getYesterdayDate = () => new Date(new Date().setDate(new Date().getDate() - 1))

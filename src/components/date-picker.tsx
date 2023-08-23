@@ -1,17 +1,16 @@
 import { memo } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import { CalendarIcon, ChevronIcon, ControlButton } from '.'
-import { YESTERDAY } from '../constants'
-import { formatDateReadable } from '../utilities'
+import { formatDateReadable, getYesterdayDate } from '../utilities/utilities'
 
 interface DatePickerProps {
   date: Date
   onChange: (date: Date) => void
 }
 
-export const DatePicker = memo(({ date = YESTERDAY, onChange }: DatePickerProps) => (
+export const DatePicker = memo(({ date = getYesterdayDate(), onChange }: DatePickerProps) => (
   <ReactDatePicker
-    maxDate={YESTERDAY}
+    maxDate={getYesterdayDate()}
     selected={date}
     customInput={
       <ControlButton
