@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { getMostViewedArticles } from './api'
+import { getMostViewedArticles } from './api/pageviews'
 import {
   Article,
   ArticleListItem,
@@ -11,8 +11,8 @@ import {
   Pagination,
   SearchButton,
 } from './components'
-import { YESTERDAY, ARTICLES_PER_PAGE } from './constants'
-import { formatDateForAPI } from './utilities'
+import { ARTICLES_PER_PAGE } from './data/constants'
+import { getYesterdayDate } from './utilities/utilities'
 
 export const App = () => {
   // pinned articles
@@ -24,7 +24,8 @@ export const App = () => {
 
   // form values
   const [articlesPerPage, setArticlesPerPage] = useState(ARTICLES_PER_PAGE[3])
-  const [date, setDate] = useState(YESTERDAY)
+  const [countryCode, setCountryCode] = useState<string>('')
+  const [date, setDate] = useState(getYesterdayDate())
 
   const pagesCount = Math.ceil(articles.length / articlesPerPage)
   const offset = currentPage * articlesPerPage
@@ -87,7 +88,6 @@ export const App = () => {
                 onClick={(selected: number) => setArticlesPerPage(selected)}
               />
             </div>
-            {/* <Country picker /> */}
             <SearchButton onClick={onClickSearch}>Search</SearchButton>
           </div>
           {pinnedArticles.length > 0 && (

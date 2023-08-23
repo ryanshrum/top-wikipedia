@@ -7,7 +7,6 @@ describe('formatDateForAPI', () => {
   })
 })
 
-// Commenting this out as it looks like to LocaleDateString is not behaving properly
 describe('formatDateReadable', () => {
   test('should format date to readable string', () => {
     const date = new Date('2023-08-08')

@@ -31,11 +31,11 @@ export const ControlButton = forwardRef<HTMLButtonElement, ControlButtonProps>(
     return (
       <button ref={ref} className={buttonClassList} onClick={onClick}>
         <div className={cx('mr-6 flex rounded-full p-3', colors[iconColor])}>{icon}</div>
-        <div className="pr-2">
+        <div className="pr-2 text-left">
           <div className="flex items-center text-xs uppercase text-neutral-500">
             {label} <ChevronIcon className="ml-1" />
           </div>
-          <div className="text-left text-neutral-900">{text}</div>
+          <div className="text-neutral-900">{text}</div>
         </div>
       </button>
     )
