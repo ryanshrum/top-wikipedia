@@ -1,14 +1,12 @@
 # Top Wikipedia articles
 
-Thank you for the oppurtunity to prepare this project. I enjoyed working on it and frankly hada difficult time putting it down at times. While there is always more that I would like to do, I am also eager to get it submitted and continue through the application process.
-
 In addition to React, I leveraged [`react-paginate`](https://github.com/AdeleD/react-paginate) and [`react-datepicker`](https://github.com/Hacker0x01/react-datepicker) to handle some of the heavy lifting of those pieces. Additionally, I used [Tailwind CSS](https://tailwindcss.com/docs/installation) with custom config for all the styling.
 
 #### What would I change or have done differently?
 
 - For the most part, things will match the Figma, but there are some places where I used the default sizes from Tailwind over adding customizations. Additionally, the "open" state is not indicated on the button to open the datepicker.
 - While this isn't quite large enough to warrant Redux, I think some global state management would be beneficial; for something of this size, the native Context API would be fine.
-- The dropdown component I made is not a true input and lacks accessibility.
+- The dropdown component is not a true input and lacks accessibility.
 - There can always be a bit more testing, though I covered some of the key unit tests.
 - I would have some catches/error handling and loading indicators (even though these endpoints are super fast).
 - I started on the country work, but cut the scope to get it submitted. You'll see artifacts pertaining to that around.
