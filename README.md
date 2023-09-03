@@ -1,5 +1,7 @@
 # Top Wikipedia articles
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bb476f2a-98d1-46d5-bd46-4693bf81cb0a/deploy-status)](https://app.netlify.com/sites/dashing-palmier-0dc65a/deploys)
+
 In addition to React, I leveraged [`react-paginate`](https://github.com/AdeleD/react-paginate) and [`react-datepicker`](https://github.com/Hacker0x01/react-datepicker) to handle some of the heavy lifting of those pieces. Additionally, I used [Tailwind CSS](https://tailwindcss.com/docs/installation) with custom config for all the styling.
 
 #### What would I change or have done differently?
