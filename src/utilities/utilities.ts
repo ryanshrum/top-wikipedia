@@ -15,7 +15,6 @@ export const formatDateForAPI = (date: Date): string => {
  * @return {string} The formatted date string.
  */
 export const formatDateReadable = (date: Date): string => {
-  console.log(date)
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',

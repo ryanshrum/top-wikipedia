@@ -16,7 +16,7 @@ import { getYesterdayDate } from './utilities/utilities'
 
 export const App = () => {
   // pinned articles
-  const storedPinnedArticles = JSON.parse(localStorage.getItem('pinnedArticles') || '')
+  const storedPinnedArticles = JSON.parse(localStorage.getItem('pinnedArticles') || '[]')
   const [pinnedArticles, setPinnedArticles] = useState<Article[]>(storedPinnedArticles || [])
 
   const [articles, setArticles] = useState([])
